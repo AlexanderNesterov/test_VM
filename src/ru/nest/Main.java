@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static final String OK = "IER := 0 Нет ошибок.";
+    private static final String OK = "IER := 0 Нет ошибок";
     private static final String ERROR_1 = "IER := 1 Требуемая точность не достигнута";
     private static final String ERROR_2 = "IER := 2 Требуемая точность не достигается. Модуль разности между\n" +
             "двумя последовательными интерполяционными значениями перестаёт\n" +
@@ -48,6 +48,19 @@ public class Main {
 
         System.out.println("segmentNumber: " + segmentNumber);
 
+        try {
+            double result = findValue(x, y, pointValue, checkEps, segmentNumber, length);
+            fos.write((OK + "\r\n" + result).getBytes());
+        } catch (Exception e) {
+            fos.write(e.getMessage().getBytes());
+            e.printStackTrace();
+        } finally {
+            fos.close();
+        }
+    }
+
+    private static double findValue(double[] x, double[] y, double pointValue,
+                                    double checkEps, int segmentNumber, int length) throws Exception {
         List<Double> xList = new ArrayList<>(length);
         List<Double> yList = new ArrayList<>(length);
 
@@ -59,6 +72,10 @@ public class Main {
 
         double previousPolynomial = 0.0;
         double currentPolynomial = calculatePolynomial(xList, yList, pointValue);
+
+        if (length == 2) {
+            return currentPolynomial;
+        }
 
         double previousEps;
         double currentEps = Double.MAX_VALUE;
@@ -78,8 +95,6 @@ public class Main {
             }
 
             if (!isRightChanged && !isLeftChanged) {
-                fos.write(ERROR_1.getBytes());
-                fos.close();
                 throw new Exception(ERROR_1);
             }
 
@@ -108,20 +123,14 @@ public class Main {
             currentEps = Math.abs(currentPolynomial - previousPolynomial);
 
             if (currentEps >= previousEps) {
-                fos.write(ERROR_2.getBytes());
-                fos.close();
                 throw new Exception(ERROR_2);
             }
 
             System.out.println(currentEps);
             if (currentEps < checkEps) {
-                fos.write((OK + "\n" + currentPolynomial).getBytes());
-                fos.close();
-                break;
+                return currentPolynomial;
             }
         }
-
-        System.out.println(currentPolynomial);
     }
 
     private static double[] readToArray(int length, Scanner sc) {
