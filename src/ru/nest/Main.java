@@ -4,9 +4,13 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static String OK = "IER := 0 Нет ошибок.";
-    private static String ERROR_1 = "IER := 1 Нарушение порядка последовательности";
-    private static String ERROR_2 = "IER := 2 точка не принадлжеит никакому отрезку";
+    private static final String OK = "IER := 0 Нет ошибок.";
+    private static final String ERROR_1 = "IER := 1 Требуемая точность не достигнута";
+    private static final String ERROR_2 = "IER := 2 Требуемая точность не достигается. Модуль разности между\n" +
+            "двумя последовательными интерполяционными значениями перестаёт\n" +
+            "уменьшаться";
+    private static final String ERROR_3 = "IER := 3 Нарушение порядка последовательности";
+    private static final String ERROR_4 = "IER := 4 Точка не принадлжеит никакому отрезку";
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(new File("d:/java/input test.txt"));
@@ -26,9 +30,9 @@ public class Main {
 
         for (int i = 0; i < length - 1; i++) {
             if (x[i] > x[i + 1]) {
-                fos.write(ERROR_1.getBytes());
+                fos.write(ERROR_3.getBytes());
                 fos.close();
-                throw new Exception(ERROR_1);
+                throw new Exception(ERROR_3);
             }
         }
 
@@ -36,12 +40,10 @@ public class Main {
 
         try {
             segmentNumber = checkSegment(x, pointValue);
-            fos.write((OK + " Номер отрезка: " + segmentNumber).getBytes());
         } catch (Exception e) {
             fos.write(e.getMessage().getBytes());
-            e.printStackTrace();
-        } finally {
             fos.close();
+            e.printStackTrace();
         }
 
         System.out.println("segmentNumber: " + segmentNumber);
@@ -76,9 +78,9 @@ public class Main {
             }
 
             if (!isRightChanged && !isLeftChanged) {
-                //Error
-                System.out.println("Error 11");
-                break;
+                fos.write(ERROR_1.getBytes());
+                fos.close();
+                throw new Exception(ERROR_1);
             }
 
             if (isLeftChanged && isRightChanged) {
@@ -106,15 +108,15 @@ public class Main {
             currentEps = Math.abs(currentPolynomial - previousPolynomial);
 
             if (currentEps >= previousEps) {
-                //Error
-                System.out.println("Error 22");
-                break;
+                fos.write(ERROR_2.getBytes());
+                fos.close();
+                throw new Exception(ERROR_2);
             }
 
             System.out.println(currentEps);
             if (currentEps < checkEps) {
-                //Error
-                System.out.println("Error 33");
+                fos.write((OK + "\n" + currentPolynomial).getBytes());
+                fos.close();
                 break;
             }
         }
@@ -140,7 +142,7 @@ public class Main {
             }
         }
 
-        throw new Exception(ERROR_2);
+        throw new Exception(ERROR_4);
     }
 
     private static double calculatePolynomial(List<Double> xList, List<Double> yList, double pointValue) {
