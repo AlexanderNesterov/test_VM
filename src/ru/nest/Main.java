@@ -13,6 +13,10 @@ public class Main {
     private static final String ERROR_4 = "IER := 4 Точка не принадлжеит никакому отрезку";
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Курс: 3, Группа: 61\n"
+                + "Лабораторная работа номер 1(Задание номер 8)\n"
+                + "Подготовили: Елфимов Артем, Седиков Константин, Нестеров Александр\n");
+
         Scanner sc = new Scanner(new File("d:/java/input test.txt"));
         FileOutputStream fos = new FileOutputStream("d:/java/output test.txt");
 
