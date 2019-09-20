@@ -17,33 +17,10 @@ public class Main {
     private static final String ERROR_4 = "IER := 4 Точка не принадлжеит никакому отрезку";
 
     private static JFrame jFrame = getFrame();
-    private static  JPanel jPanel = new JPanel();
+    private static JPanel jPanel = new JPanel();
 
     public static void main(String[] args) throws Exception {
-        jFrame.add(jPanel);
-
-        JButton jbutton2 = new JButton("Показать задачу ->");
-        jPanel.add(jbutton2);
-        jbutton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showConfirmDialog(jPanel,
-                        "Назначение: Полиномиальное интерполирование значений функции с заданным аргументом.",
-                        "Задача",JOptionPane.OK_CANCEL_OPTION);
-            }
-        });
-
-
-        JButton jbutton = new JButton("Показать создателей ->");
-        jPanel.add(jbutton);
-        jbutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jPanel,
-                        "Над проектом работали студенты 3-го курса ФИИТ ПММ : Нестеров А.,Седиков К.,Елфимов А. ",
-                        "Создатели:",JOptionPane.PLAIN_MESSAGE);
-            }
-        });
+        showWindow();
 
         Scanner sc = new Scanner(new File("d:/java/input test.txt"));
         FileOutputStream fos = new FileOutputStream("d:/java/output test.txt");
@@ -201,6 +178,33 @@ public class Main {
         }
 
         return polynomialValue;
+    }
+
+    private static void showWindow() {
+        jFrame.add(jPanel);
+
+        JButton jbutton2 = new JButton("Показать задачу ->");
+        jPanel.add(jbutton2);
+        jbutton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showConfirmDialog(jPanel,
+                        "Назначение: Полиномиальное интерполирование значений функции с заданным аргументом.",
+                        "Задача",JOptionPane.OK_CANCEL_OPTION);
+            }
+        });
+
+
+        JButton jbutton = new JButton("Показать создателей ->");
+        jPanel.add(jbutton);
+        jbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jPanel,
+                        "Над проектом работали студенты 3-го курса ФИИТ ПММ : Нестеров А.,Седиков К.,Елфимов А. ",
+                        "Создатели:",JOptionPane.PLAIN_MESSAGE);
+            }
+        });
     }
 
     static JFrame getFrame(){
