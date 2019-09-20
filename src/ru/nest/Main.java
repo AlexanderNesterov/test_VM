@@ -1,6 +1,10 @@
 package ru.nest;
 
-import java.io.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.*;
 
 public class Main {
@@ -12,7 +16,35 @@ public class Main {
     private static final String ERROR_3 = "IER := 3 Нарушение порядка последовательности";
     private static final String ERROR_4 = "IER := 4 Точка не принадлжеит никакому отрезку";
 
+    private static JFrame jFrame = getFrame();
+    private static  JPanel jPanel = new JPanel();
+
     public static void main(String[] args) throws Exception {
+        jFrame.add(jPanel);
+
+        JButton jbutton2 = new JButton("Показать задачу ->");
+        jPanel.add(jbutton2);
+        jbutton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showConfirmDialog(jPanel,
+                        "Назначение: Полиномиальное интерполирование значений функции с заданным аргументом.",
+                        "Задача",JOptionPane.OK_CANCEL_OPTION);
+            }
+        });
+
+
+        JButton jbutton = new JButton("Показать создателей ->");
+        jPanel.add(jbutton);
+        jbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jPanel,
+                        "Над проектом работали студенты 3-го курса ФИИТ ПММ : Нестеров А.,Седиков К.,Елфимов А. ",
+                        "Создатели:",JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+
         Scanner sc = new Scanner(new File("d:/java/input test.txt"));
         FileOutputStream fos = new FileOutputStream("d:/java/output test.txt");
 
@@ -23,8 +55,6 @@ public class Main {
         double checkEps = Double.parseDouble(sc.nextLine());
 
         System.out.println(Arrays.toString(x));
-        //System.out.println(Arrays.toString(y));
-        //System.out.println(pointValue);
 
         sc.close();
 
@@ -171,5 +201,13 @@ public class Main {
         }
 
         return polynomialValue;
+    }
+
+    static JFrame getFrame(){
+        JFrame jFrame = new JFrame(){};
+        jFrame.setVisible(true);
+        jFrame.setBounds(750,250,500,500);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        return jFrame;
     }
 }
