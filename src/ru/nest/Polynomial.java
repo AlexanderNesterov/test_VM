@@ -24,7 +24,7 @@ public class Polynomial {
         double pointValue = Double.parseDouble(sc.nextLine());
         double checkEps = Double.parseDouble(sc.nextLine());
 
-        System.out.println(Arrays.toString(x));
+        //System.out.println(Arrays.toString(x));
 
         sc.close();
 
@@ -46,7 +46,7 @@ public class Polynomial {
             e.printStackTrace();
         }
 
-        System.out.println("segmentNumber: " + segmentNumber);
+        //System.out.println("segmentNumber: " + segmentNumber);
 
         try {
             double result = findValue(x, y, pointValue, checkEps, segmentNumber, length);
@@ -122,11 +122,13 @@ public class Polynomial {
             previousEps = currentEps;
             currentEps = Math.abs(currentPolynomial - previousPolynomial);
 
+            //System.out.println("prevEps = " + previousEps + " currEps = " + currentEps);
+
             if (currentEps >= previousEps) {
                 throw new Exception(ERROR_2);
             }
 
-            System.out.println(currentEps);
+            //System.out.println(currentEps);
             if (currentEps < checkEps) {
                 return currentPolynomial;
             }
