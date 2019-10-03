@@ -15,16 +15,14 @@ public class Polynomial {
 
     public void calculate() throws Exception {
 
-        Scanner sc = new Scanner(new File("/home/alexander/Документы/java projects/test_VM/input"));
-        FileOutputStream fos = new FileOutputStream("/home/alexander/Документы/java projects/test_VM/output");
+        Scanner sc = new Scanner(new File("d:/java/vm/func3.txt"));
+        FileOutputStream fos = new FileOutputStream("d:/java/vm/output test.txt");
 
         int length = Integer.parseInt(sc.nextLine());
         double[] x = readToArray(length, sc);
         double[] y = readToArray(length, sc);
         double pointValue = Double.parseDouble(sc.nextLine());
         double checkEps = Double.parseDouble(sc.nextLine());
-
-        //System.out.println(Arrays.toString(x));
 
         sc.close();
 
@@ -45,8 +43,6 @@ public class Polynomial {
             fos.close();
             e.printStackTrace();
         }
-
-        //System.out.println("segmentNumber: " + segmentNumber);
 
         try {
             double result = findValue(x, y, pointValue, checkEps, segmentNumber, length);

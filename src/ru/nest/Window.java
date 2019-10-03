@@ -28,6 +28,7 @@ public class Window {
             try {
                 pol.calculate();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
