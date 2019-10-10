@@ -15,7 +15,7 @@ public class Polynomial {
 
     public void calculate() throws Exception {
 
-        Scanner sc = new Scanner(new File("d:/java/vm/polyn4.txt"));
+        Scanner sc = new Scanner(new File("d:/java/vm/polyn5.txt"));
         FileOutputStream fos = new FileOutputStream("d:/java/vm/output test.txt");
 
         int length = Integer.parseInt(sc.nextLine());
