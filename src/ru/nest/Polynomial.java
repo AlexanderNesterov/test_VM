@@ -15,7 +15,7 @@ public class Polynomial {
 
     public void calculate() throws Exception {
 
-        Scanner sc = new Scanner(new File("d:/java/vm/func3.txt"));
+        Scanner sc = new Scanner(new File("d:/java/vm/polyn4.txt"));
         FileOutputStream fos = new FileOutputStream("d:/java/vm/output test.txt");
 
         int length = Integer.parseInt(sc.nextLine());
@@ -118,7 +118,12 @@ public class Polynomial {
             previousEps = currentEps;
             currentEps = Math.abs(currentPolynomial - previousPolynomial);
 
+            //System.out.println(xList.size());
             //System.out.println("prevEps = " + previousEps + " currEps = " + currentEps);
+
+/*            if (xList.size() == 4) {
+                continue;
+            }*/
 
             if (currentEps >= previousEps) {
                 throw new Exception(ERROR_2);
